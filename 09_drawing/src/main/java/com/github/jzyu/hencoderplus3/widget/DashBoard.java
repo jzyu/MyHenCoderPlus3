@@ -22,6 +22,7 @@ public class DashBoard extends View {
     public static final float ANGLE = 120;
     public static final float DASH_THICKNESS = Utils.dp2px(2);
     public static final float DASH_LENGTH = Utils.dp2px(10);
+    public static final float MARK_LENGTH = Utils.dp2px(100);
     public static final float START_ANGLE = 90 + ANGLE / 2;
     public static final float SWEEP_ANGLE = 360 - ANGLE;
     public static final RectF arcRect = new RectF();
@@ -66,11 +67,28 @@ public class DashBoard extends View {
         paint.setPathEffect(pathEffect);
         drawArc(canvas);
         paint.setPathEffect(null);
+
+        // 画指针
+        drawMark(canvas, 5);
+        drawMark(canvas, 0);
+    }
+
+    private void drawMark(Canvas canvas, int mark) {
+        canvas.drawLine(getWidth() / 2f, getHeight() / 2f,
+                getWidth() / 2f + (float) Math.cos(Math.toRadians(getAngleForMark(mark))) * MARK_LENGTH,
+                getHeight() / 2f + (float) Math.sin(Math.toRadians(getAngleForMark(mark))) * MARK_LENGTH,
+                paint);
+    }
+
+    private float getAngleForMark(int mark) {
+        return START_ANGLE + (SWEEP_ANGLE) / 20 * mark;
     }
 
     private void calcArcRect() {
-        arcRect.left = arcRect.top = getWidth() / 2f - RADIUS;
-        arcRect.right = arcRect.bottom = getWidth() / 2f + RADIUS;
+        arcRect.left = getWidth() / 2f - RADIUS;
+        arcRect.right = getWidth() / 2f + RADIUS;
+        arcRect.top = getHeight() / 2f - RADIUS;
+        arcRect.bottom = getHeight() / 2f + RADIUS;
     }
 
     private void drawArc(Canvas canvas) {
