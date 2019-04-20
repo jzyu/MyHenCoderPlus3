@@ -7,6 +7,7 @@ import android.graphics.Path;
 import android.graphics.PathDashPathEffect;
 import android.graphics.PathEffect;
 import android.graphics.PathMeasure;
+import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -21,11 +22,13 @@ public class DashBoard extends View {
     public static final float ANGLE = 120;
     public static final float DASH_THICKNESS = Utils.dp2px(2);
     public static final float DASH_LENGTH = Utils.dp2px(10);
+    public static final float START_ANGLE = 90 + ANGLE / 2;
+    public static final float SWEEP_ANGLE = 360 - ANGLE;
+    public static final RectF arcRect = new RectF();
 
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Path dash = new Path();
     Path path = new Path();
-    PathMeasure pathMeasure;
     PathEffect pathEffect;
 
     {
@@ -42,10 +45,10 @@ public class DashBoard extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        path.addArc(getWidth() / 2 - RADIUS, getWidth() / 2 - RADIUS,
-                getWidth() / 2 + RADIUS, getWidth() / 2 + RADIUS,
-                90 + ANGLE / 2, 360 - ANGLE);
-        pathMeasure = new PathMeasure(path, false);
+        calcArcRect();
+
+        path.addArc(arcRect, START_ANGLE, SWEEP_ANGLE);
+        PathMeasure pathMeasure = new PathMeasure(path, false);
         pathEffect = new PathDashPathEffect(dash,
                 (pathMeasure.getLength() - DASH_THICKNESS) / 20,
                 0,
@@ -56,26 +59,21 @@ public class DashBoard extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        // 画原图形
-        canvas.drawArc(getWidth() / 2 - RADIUS,
-                getWidth() / 2 - RADIUS,
-                getWidth() / 2 + RADIUS,
-                getWidth() / 2 + RADIUS,
-                90 + ANGLE / 2,
-                360 - ANGLE,
-                false,
-                paint);
+        // 画圆弧
+        drawArc(canvas);
 
         // 画刻度
         paint.setPathEffect(pathEffect);
-        canvas.drawArc(getWidth() / 2 - RADIUS,
-                getWidth() / 2 - RADIUS,
-                getWidth() / 2 + RADIUS,
-                getWidth() / 2 + RADIUS,
-                90 + ANGLE / 2,
-                360 - ANGLE,
-                false,
-                paint);
+        drawArc(canvas);
         paint.setPathEffect(null);
+    }
+
+    private void calcArcRect() {
+        arcRect.left = arcRect.top = getWidth() / 2f - RADIUS;
+        arcRect.right = arcRect.bottom = getWidth() / 2f + RADIUS;
+    }
+
+    private void drawArc(Canvas canvas) {
+        canvas.drawArc(arcRect, START_ANGLE, SWEEP_ANGLE, false, paint);
     }
 }
