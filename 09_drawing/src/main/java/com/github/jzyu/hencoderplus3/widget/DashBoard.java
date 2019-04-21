@@ -25,7 +25,7 @@ public class DashBoard extends View {
     public static final float MARK_LENGTH = Utils.dp2px(100);
     public static final float START_ANGLE = 90 + ANGLE / 2;
     public static final float SWEEP_ANGLE = 360 - ANGLE;
-    public static final RectF arcRect = new RectF();
+    public static final RectF bounds = new RectF();
 
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Path dash = new Path();
@@ -46,9 +46,11 @@ public class DashBoard extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        calcArcRect();
+        // set arc bounds
+        bounds.set(getWidth() / 2f - RADIUS, getHeight() / 2f - RADIUS,
+                getWidth() / 2f + RADIUS, getHeight() / 2f + RADIUS);
 
-        path.addArc(arcRect, START_ANGLE, SWEEP_ANGLE);
+        path.addArc(bounds, START_ANGLE, SWEEP_ANGLE);
         PathMeasure pathMeasure = new PathMeasure(path, false);
         pathEffect = new PathDashPathEffect(dash,
                 (pathMeasure.getLength() - DASH_THICKNESS) / 20,
@@ -84,14 +86,7 @@ public class DashBoard extends View {
         return START_ANGLE + (SWEEP_ANGLE) / 20 * mark;
     }
 
-    private void calcArcRect() {
-        arcRect.left = getWidth() / 2f - RADIUS;
-        arcRect.right = getWidth() / 2f + RADIUS;
-        arcRect.top = getHeight() / 2f - RADIUS;
-        arcRect.bottom = getHeight() / 2f + RADIUS;
-    }
-
     private void drawArc(Canvas canvas) {
-        canvas.drawArc(arcRect, START_ANGLE, SWEEP_ANGLE, false, paint);
+        canvas.drawArc(bounds, START_ANGLE, SWEEP_ANGLE, false, paint);
     }
 }
