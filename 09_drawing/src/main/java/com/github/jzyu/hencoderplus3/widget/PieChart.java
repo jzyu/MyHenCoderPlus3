@@ -13,10 +13,13 @@ import com.github.jzyu.hencoderplus3.utils.Utils;
 
 public class PieChart extends View {
     public static final float RADIUS = Utils.dp2px(150);
+    private final int[] COLORS = {Color.DKGRAY, Color.BLUE, Color.RED, Color.GREEN};
+    private final int[] ANGLES = {50, 100, 80, 130};
+    public static final int PULL_INDEX = 2;
+    public static final float PULL_LENGTH = Utils.dp2px(12);
+
     private final RectF bounds = new RectF();
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final int[] COLORS = {Color.DKGRAY, Color.BLUE, Color.RED, Color.YELLOW};
-    private final int[] ANGLES = {50, 100, 80, 130};
 
     public PieChart(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -38,7 +41,19 @@ public class PieChart extends View {
         int currentAngle = 0;
         for (int i = 0; i < COLORS.length; i++) {
             paint.setColor(COLORS[i]);
+
+            if (i == PULL_INDEX) {
+                canvas.save();
+                canvas.translate(
+                        (float) Math.cos(Math.toRadians(currentAngle + ANGLES[i] / 2f)) * PULL_LENGTH,
+                        (float) Math.sin(Math.toRadians(currentAngle + ANGLES[i] / 2f)) * PULL_LENGTH);
+            }
+
             canvas.drawArc(bounds, currentAngle, ANGLES[i], true, paint);
+            if (i == PULL_INDEX) {
+                canvas.restore();
+            }
+
             currentAngle += ANGLES[i];
         }
     }
