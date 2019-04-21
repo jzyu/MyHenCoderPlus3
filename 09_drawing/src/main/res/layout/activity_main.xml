@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.github.jzyu.hencoderplus3.widget.PieChart
+    <com.github.jzyu.hencoderplus3.widget.AvatarView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
