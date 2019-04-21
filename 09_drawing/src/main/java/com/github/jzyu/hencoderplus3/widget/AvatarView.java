@@ -18,9 +18,9 @@ import com.github.jzyu.hencoderplus3.R;
 import com.github.jzyu.hencoderplus3.utils.Utils;
 
 public class AvatarView extends View {
-    public static final float WIDTH = Utils.dp2px(300);
-    public static final float PADDING = Utils.dp2px(40);
-    public static final float BORDER_WIDTH = Utils.dp2px(16);
+    public static final float WIDTH = Utils.dp2px(180);
+    public static final float PADDING = Utils.dp2px(30);
+    public static final float BORDER_WIDTH = Utils.dp2px(12);
 
     private Bitmap avatar = getAvatar((int)WIDTH);
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);

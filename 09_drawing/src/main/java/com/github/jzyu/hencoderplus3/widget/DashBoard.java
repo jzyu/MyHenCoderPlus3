@@ -18,11 +18,11 @@ import com.github.jzyu.hencoderplus3.utils.Utils;
  * Date  : 2019/4/10.
  */
 public class DashBoard extends View {
-    public static final float RADIUS = Utils.dp2px(150);
+    public static final float RADIUS = Utils.dp2px(100);
     public static final float ANGLE = 120;
     public static final float DASH_THICKNESS = Utils.dp2px(2);
     public static final float DASH_LENGTH = Utils.dp2px(10);
-    public static final float MARK_LENGTH = Utils.dp2px(100);
+    public static final float MARK_LENGTH = RADIUS * 0.7f;
     public static final float START_ANGLE = 90 + ANGLE / 2;
     public static final float SWEEP_ANGLE = 360 - ANGLE;
     public static final RectF bounds = new RectF();

@@ -12,7 +12,7 @@ import android.view.View;
 import com.github.jzyu.hencoderplus3.utils.Utils;
 
 public class PieChart extends View {
-    public static final float RADIUS = Utils.dp2px(150);
+    public static final float RADIUS = Utils.dp2px(100);
     private final int[] COLORS = {Color.DKGRAY, Color.BLUE, Color.RED, Color.GREEN};
     private final int[] ANGLES = {50, 100, 80, 130};
     public static final int PULL_INDEX = 2;
