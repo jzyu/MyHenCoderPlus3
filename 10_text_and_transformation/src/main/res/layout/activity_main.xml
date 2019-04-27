@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="12dp"
+        android:padding="0dp"
         />
     <com.github.jzyu.a10_text_and_transformation.widget.SportsView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="40dp"
+        android:padding="12dp"
         />
 
 </LinearLayout>
