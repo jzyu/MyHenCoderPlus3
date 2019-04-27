@@ -16,7 +16,7 @@
     <com.github.jzyu.a10_text_and_transformation.widget.SportsView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:padding="12dp"
         />
 

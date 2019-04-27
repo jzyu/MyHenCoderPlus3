@@ -7,17 +7,16 @@ import android.graphics.Path;
 import android.graphics.PathDashPathEffect;
 import android.graphics.PathEffect;
 import android.graphics.PathMeasure;
-import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.View;
 
 import com.github.jzyu.common.utils.Utils;
+import com.github.jzyu.common.widget.BaseCircleView;
+
 /**
  * Date  : 2019/4/10.
  */
-public class DashBoard extends View {
-    private float RADIUS;
+public class DashBoard extends BaseCircleView {
     private float MARK_LENGTH;
 
     public static final float ANGLE = 120;
@@ -25,16 +24,12 @@ public class DashBoard extends View {
     public static final float DASH_LENGTH = Utils.dp2px(10);
     public static final float START_ANGLE = 90 + ANGLE / 2;
     public static final float SWEEP_ANGLE = 360 - ANGLE;
-    public static final RectF bounds = new RectF();
 
-    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Path dash = new Path();
     Path path = new Path();
     PathEffect pathEffect;
-
     {
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(Utils.dp2px(3));
         dash.addRect(0, 0, DASH_THICKNESS, DASH_LENGTH, Path.Direction.CCW);
     }
 
@@ -43,20 +38,17 @@ public class DashBoard extends View {
     }
 
     @Override
+    protected float provideCircleBorderWidth(float shortBorderLength) {
+        return shortBorderLength * 0.03f;
+    }
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        RADIUS = Math.min(
-                getWidth() - getPaddingLeft() - getPaddingRight(),
-                getHeight() - getPaddingTop() - getPaddingBottom())
-                / 2f;
-        MARK_LENGTH = RADIUS * 0.7f;
+        MARK_LENGTH = radius * 0.7f;
 
-        // set arc bounds
-        bounds.set(getWidth() / 2f - RADIUS, getHeight() / 2f - RADIUS,
-                getWidth() / 2f + RADIUS, getHeight() / 2f + RADIUS);
-
-        path.addArc(bounds, START_ANGLE, SWEEP_ANGLE);
+        path.addArc(circleRect, START_ANGLE, SWEEP_ANGLE);
         PathMeasure pathMeasure = new PathMeasure(path, false);
         pathEffect = new PathDashPathEffect(dash,
                 (pathMeasure.getLength() - DASH_THICKNESS) / 20,
@@ -93,6 +85,6 @@ public class DashBoard extends View {
     }
 
     private void drawArc(Canvas canvas) {
-        canvas.drawArc(bounds, START_ANGLE, SWEEP_ANGLE, false, paint);
+        canvas.drawArc(circleRect, START_ANGLE, SWEEP_ANGLE, false, paint);
     }
 }
