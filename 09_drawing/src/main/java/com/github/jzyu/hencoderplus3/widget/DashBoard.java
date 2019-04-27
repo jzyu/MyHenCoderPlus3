@@ -12,8 +12,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.github.jzyu.hencoderplus3.utils.Utils;
-
+import com.github.jzyu.common.utils.Utils;
 /**
  * Date  : 2019/4/10.
  */

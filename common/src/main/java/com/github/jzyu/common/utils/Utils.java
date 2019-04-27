@@ -1,4 +1,4 @@
-package com.github.jzyu.hencoderplus3.utils;
+package com.github.jzyu.common.utils;
 
 import android.content.res.Resources;
 import android.util.TypedValue;
