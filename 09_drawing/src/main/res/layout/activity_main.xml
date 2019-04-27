@@ -10,16 +10,19 @@
     <com.github.jzyu.hencoderplus3.widget.DashBoard
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:padding="12dp"/>
 
     <com.github.jzyu.hencoderplus3.widget.PieChart
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:padding="12dp"/>
 
     <com.github.jzyu.hencoderplus3.widget.AvatarView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:padding="12dp"/>
 
 </LinearLayout>

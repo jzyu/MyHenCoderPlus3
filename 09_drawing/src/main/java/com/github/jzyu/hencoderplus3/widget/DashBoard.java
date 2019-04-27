@@ -18,11 +18,12 @@ import com.github.jzyu.hencoderplus3.utils.Utils;
  * Date  : 2019/4/10.
  */
 public class DashBoard extends View {
-    public static final float RADIUS = Utils.dp2px(100);
+    private float RADIUS;
+    private float MARK_LENGTH;
+
     public static final float ANGLE = 120;
     public static final float DASH_THICKNESS = Utils.dp2px(2);
     public static final float DASH_LENGTH = Utils.dp2px(10);
-    public static final float MARK_LENGTH = RADIUS * 0.7f;
     public static final float START_ANGLE = 90 + ANGLE / 2;
     public static final float SWEEP_ANGLE = 360 - ANGLE;
     public static final RectF bounds = new RectF();
@@ -45,6 +46,12 @@ public class DashBoard extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+
+        RADIUS = Math.min(
+                getWidth() - getPaddingLeft() - getPaddingRight(),
+                getHeight() - getPaddingTop() - getPaddingBottom())
+                / 2f;
+        MARK_LENGTH = RADIUS * 0.7f;
 
         // set arc bounds
         bounds.set(getWidth() / 2f - RADIUS, getHeight() / 2f - RADIUS,
@@ -71,8 +78,8 @@ public class DashBoard extends View {
         paint.setPathEffect(null);
 
         // 画指针
-        drawMark(canvas, 5);
-        drawMark(canvas, 0);
+        drawMark(canvas, 6);
+        drawMark(canvas, 2);
     }
 
     private void drawMark(Canvas canvas, int mark) {
