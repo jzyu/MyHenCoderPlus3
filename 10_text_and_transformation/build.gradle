@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.github.jzyu.a10_text_and_transformation"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
